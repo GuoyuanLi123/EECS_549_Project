@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 from tqdm import tqdm
 
 metadata_file = 'metadata.tsv'
@@ -32,7 +33,8 @@ output = open(output_file,'w')
 with open(transcripts_jsonl) as dataset:
     for jsline in tqdm(dataset, desc='generating dataset jonsl'):
         doc = json.loads(jsline)
-        episode_metadata = metadata[doc['episode_filename_prefix']]
+        episode_filename_prefix, _ = os.path.splitext(doc['episode_filename_prefix'])
+        episode_metadata = metadata[episode_filename_prefix]
         output_dict = {'show_uri': episode_metadata[0],
                     'show_name': episode_metadata[1],
                     'show_description': episode_metadata[2],
