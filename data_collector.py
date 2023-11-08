@@ -46,7 +46,7 @@ with open(transcripts_jsonl) as dataset:
                     'episode_description': episode_metadata[8],
                     'duration': episode_metadata[9],
                     'show_filename_prefix': episode_metadata[10],
-                    'episode_filename_prefix': doc['episode_filename_prefix'],
+                    'episode_filename_prefix': episode_filename_prefix,
                     'transcript': doc['transcripts']
                     }
         json.dump(output_dict, output)
