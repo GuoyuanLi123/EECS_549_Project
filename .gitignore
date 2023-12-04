@@ -1,0 +1,11 @@
+
+.DS_Store
+*.bf
+*.fsomaphash
+index/data.properties
+index/data.meta.zdata
+index/data.meta.idx
+index/data.meta-0.fsomapfile
+index/data.lexicon.fsomapfile
+index/data.lexicon.fsomapid
+index/data.document.fsarrayfile
