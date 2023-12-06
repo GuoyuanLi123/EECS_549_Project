@@ -64,6 +64,9 @@ const HomePageSearchBar = () => {
           <Row justify="center" style={{ marginBottom: 20 }}>
             <Form
               name="basic"
+              labelCol={{
+                span: 8,
+              }}
               wrapperCol={{
                 span: 16,
               }}
@@ -87,7 +90,36 @@ const HomePageSearchBar = () => {
                   span: 16,
                 }}
               >
-                <Input style={{ width: 600 }} />
+                <Input style={{ width: 300 }} />
+              </Form.Item>
+              <Form.Item
+                label="EpisodeName"
+                name="episodeName"
+                wrapperCol={{
+                  span: 16,
+                }}
+              >
+                <Input style={{ width: 300 }} />
+              </Form.Item>
+
+              <Form.Item
+                label="ShowName"
+                name="showName"
+                wrapperCol={{
+                  span: 16,
+                }}
+              >
+                <Input style={{ width: 300 }} />
+              </Form.Item>
+
+              <Form.Item
+                label="Publisher"
+                name="publisher"
+                wrapperCol={{
+                  span: 16,
+                }}
+              >
+                <Input style={{ width: 300 }} />
               </Form.Item>
 
               <Form.Item

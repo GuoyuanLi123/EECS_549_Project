@@ -24,13 +24,13 @@ class SearchEngine:
             self.index = pt.IndexFactory.of("./index")
             self.indexref = pt.IndexRef.of("./index/data.properties")
         else:
-            self.indexref = pt.IterDictIndexer("./index", meta={"docno": 20}).index(
+            self.indexref = pt.IterDictIndexer("./index", meta={"docno": 20, "episode_uri":1024, "episode_name":1024, "show_name":1024, "transcript":256}).index(
                 self.iter_file(),
                 fields=("transcript",))
             self.index = pt.IndexFactory.of(self.indexref)
 
     def filter(self, result):
-        pass
+
 
     def query(self, query:str):
         pass
