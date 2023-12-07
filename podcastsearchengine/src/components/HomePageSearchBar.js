@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { Button, Checkbox, Form, Input, Space, Row, message } from "antd";
-import { Link } from "react-router-dom";
-import { doSearch } from "../util";
 import logo from "../searchengine.png";
-
-const { Search } = Input;
 
 const HomePageSearchBar = () => {
   const [advanceSearch, setAdvanceSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const onFormFinish = () => {};
+  const onFormFinish = (values) => {
+    window.location.href = `search/${values.keyword}/${values.episodeName}/${values.showName}/${values.publisher}`;
+  };
+
+  const linkToResultPage = (query) => {
+    window.location.href = `search/${query}/null/null/null`;
+  };
 
   const onNormalSearch = (query) => {
+    if (query === "") {
+      return;
+    }
     setLoading(true);
-    doSearch(query)
-      .catch((err) => message.error(err.message))
-      .finally(() => {
-        setLoading(false);
-      });
+
+    linkToResultPage(query);
     setLoading(false);
   };
 
@@ -46,16 +48,15 @@ const HomePageSearchBar = () => {
                 style={{ width: 600 }}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <Link to={`/search/${searchTerm}`}>
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    onNormalSearch(searchTerm);
-                  }}
-                >
-                  Search
-                </Button>
-              </Link>
+
+              <Button
+                type="primary"
+                onClick={() => {
+                  onNormalSearch(searchTerm);
+                }}
+              >
+                Search
+              </Button>
             </Space>
           </Row>
           <Row justify="center">

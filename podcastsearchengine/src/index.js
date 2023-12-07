@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "search/:query",
+    path: "search/:query/:episodeName/:showName/:publisher",
     element: <SearchResultsPage />,
   },
 ]);

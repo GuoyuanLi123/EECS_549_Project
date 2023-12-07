@@ -1,12 +1,35 @@
 import { useEffect, useState } from "react";
-import { Layout, Typography, Image } from "antd";
+import { useParams } from "react-router-dom";
+import { Layout, Typography, List, message } from "antd";
 import { Link } from "react-router-dom";
+import { doSearch } from "../util";
 import logo from "../searchengine.png";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const SearchResultsPage = () => {
+  const { query, episodeName, showName, publisher } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append(query);
+    formData.append(episodeName);
+    formData.append(showName);
+    formData.append(publisher);
+
+    try {
+      let result = await doSearch(formData);
+      setSearchResult(result);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
   return (
     <Layout style={{ height: "100vh" }}>
       <Header>
@@ -35,7 +58,38 @@ const SearchResultsPage = () => {
           maxHeight: "calc(100% - 64px)",
           overflowY: "auto",
         }}
-      ></Content>
+      >
+        <List
+          loading={loading}
+          itemLayout="vertical"
+          size="large"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 3,
+          }}
+          dataSource={searchResult}
+          renderItem={(item) => (
+            <List.Item
+              key={item.title}
+              extra={
+                <img
+                  width={272}
+                  alt="logo"
+                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                />
+              }
+            >
+              <List.Item.Meta
+                title={<a href={item.href}>{item.title}</a>}
+                description={item.description}
+              />
+              {item.content}
+            </List.Item>
+          )}
+        />
+      </Content>
     </Layout>
   );
 };
