@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Layout, Typography, Image } from "antd";
-import logo from "./searchengine.png";
+import { Link } from "react-router-dom";
+import logo from "../searchengine.png";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-const searchResultsPage = () => {
+const SearchResultsPage = () => {
   return (
     <Layout style={{ height: "100vh" }}>
       <Header>
@@ -13,19 +14,19 @@ const searchResultsPage = () => {
           className="header"
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Title
-            level={2}
-            style={{ color: "white", lineHeight: "inherit", marginBottom: 0 }}
-          >
-            <a href="https://www.bilibili.com/" style={{ color: "white" }}>
+          <Link to={"/"}>
+            <Title
+              level={2}
+              style={{ color: "white", lineHeight: "inherit", marginBottom: 0 }}
+            >
               <img
                 style={{ marginRight: 5, marginBottom: 5 }}
                 width={50}
                 src={logo}
               />
               Podcast Search Engine
-            </a>
-          </Title>
+            </Title>
+          </Link>
         </div>
       </Header>
       <Content
@@ -38,3 +39,5 @@ const searchResultsPage = () => {
     </Layout>
   );
 };
+
+export default SearchResultsPage;

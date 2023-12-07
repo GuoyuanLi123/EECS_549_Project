@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import "./App.css";
-import HomePageSearchBar from "./component/HomePageSearchBar";
+import HomePageSearchBar from "./components/HomePageSearchBar";
 import Background from "./polskie-podcasty-biznesowe-scaled.jpeg";
 
 const { Content } = Layout;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Checkbox, Form, Input, Space, Row, message } from "antd";
+import { Link } from "react-router-dom";
 import { doSearch } from "../util";
 import logo from "../searchengine.png";
 
@@ -7,6 +8,7 @@ const { Search } = Input;
 
 const HomePageSearchBar = () => {
   const [advanceSearch, setAdvanceSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
 
   const onFormFinish = () => {};
@@ -38,12 +40,23 @@ const HomePageSearchBar = () => {
             <div style={{ fontSize: 50 }}>Podcast Search Engine</div>
           </Row>
           <Row justify="center" style={{ marginBottom: 20 }}>
-            <Search
-              style={{ width: 600 }}
-              placeholder="Please enter keyword"
-              onSearch={onNormalSearch}
-              loading={loading}
-            />
+            <Space direction="horizontal">
+              <Input
+                placeholder="Please enter keyword"
+                style={{ width: 600 }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Link to={`/search/${searchTerm}`}>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    onNormalSearch(searchTerm);
+                  }}
+                >
+                  Search
+                </Button>
+              </Link>
+            </Space>
           </Row>
           <Row justify="center">
             <Checkbox onChange={onClickAdvanceSearch}>Advance Search</Checkbox>
