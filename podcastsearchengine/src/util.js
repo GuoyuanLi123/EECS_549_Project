@@ -1,5 +1,5 @@
 export const doSearch = (query) => {
-  const searchUrl = "";
+  const searchUrl = "localhost:8000";
 
   return fetch(searchUrl, {
     method: "POST",
