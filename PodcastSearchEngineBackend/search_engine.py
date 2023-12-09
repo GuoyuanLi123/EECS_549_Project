@@ -1,5 +1,5 @@
-import pyterrier as pt
 import pandas as pd
+import pyterrier as pt
 import json
 import os
 
@@ -30,7 +30,7 @@ class SearchEngine:
             self.index = pt.IndexFactory.of(self.indexref)
 
     def filter(self, result):
+        pass
 
-
-    def query(self, query:str):
+    def query(self, query: str, episodeName: str, showName:str, publisher:str):
         pass

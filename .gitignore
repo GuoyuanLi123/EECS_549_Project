@@ -11,3 +11,6 @@ index/data.lexicon.fsomapid
 index/data.document.fsarrayfile
 podcastsearchengine/package.json
 podcastsearchengine/package-lock.json
+*.xml
+*.pyc
+*.iml
