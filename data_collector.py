@@ -31,22 +31,25 @@ with open(metadata_file) as fd:
 output = open(output_file,'w')
 
 with open(transcripts_jsonl) as dataset:
-    for jsline in tqdm(dataset, desc='generating dataset jonsl'):
+    episode_prefix = 'https://open.spotify.com/episode/'
+    show_prefix = 'https://open.spotify.com/show/'
+    for idx, jsline in tqdm(enumerate(dataset), desc='generating dataset jonsl'):
         doc = json.loads(jsline)
-        episode_filename_prefix, _ = os.path.splitext(doc['episode_filename_prefix'])
-        episode_metadata = metadata[episode_filename_prefix]
-        output_dict = {'show_uri': episode_metadata[0],
+        # episode_filename_prefix, _ = os.path.splitext(doc['episode_filename_prefix'])
+        episode_metadata = metadata[doc['episode_filename_prefix']]
+        output_dict = {'docno': str(idx),
+                    'show_url': show_prefix + episode_metadata[0].split(':')[2],
                     'show_name': episode_metadata[1],
                     'show_description': episode_metadata[2],
                     'publisher': episode_metadata[3],
                     'language': episode_metadata[4],
                     'rss_link': episode_metadata[5],
-                    'episode_uri': episode_metadata[6],
+                    'episode_url': episode_prefix + episode_metadata[6].split(':')[2],
                     'episode_name': episode_metadata[7],
                     'episode_description': episode_metadata[8],
                     'duration': episode_metadata[9],
                     'show_filename_prefix': episode_metadata[10],
-                    'episode_filename_prefix': episode_filename_prefix,
+                    'episode_filename_prefix': doc['episode_filename_prefix'],
                     'transcript': doc['transcripts']
                     }
         json.dump(output_dict, output)
