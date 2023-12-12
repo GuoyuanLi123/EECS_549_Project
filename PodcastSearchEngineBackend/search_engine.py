@@ -26,7 +26,7 @@ class SearchEngine:
             self.index = pt.IndexFactory.of("./index")
             self.indexref = pt.IndexRef.of("./index/data.properties")
         else:
-            self.indexref = pt.IterDictIndexer("./index", meta={"docno": 20, "publisher":128, "episode_url":1024, "episode_id":1024, "episode_name":1024, "show_name":1024, "transcript":256}).index(
+            self.indexref = pt.IterDictIndexer("./index", meta={"docno": 20, "publisher":128, "episode_url":1024, "episode_id":1024, "episode_name":1024, "show_name":1024, "transcript":1024}).index(
                 self.iter_file(),
                 fields=("transcript",))
             self.index = pt.IndexFactory.of(self.indexref)

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Layout, Typography, List, message, Form, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { doSearch } from "../util";
+import { doSearch, getThumbnail } from "../util";
 import logo from "../searchengine.png";
 
 const { Header, Content } = Layout;
@@ -24,23 +24,20 @@ const SearchResultsPage = () => {
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
-  const onFormFinish = async (value) => {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append(value.query);
-    formData.append(value.episodeName);
-    formData.append(value.showName);
-    formData.append(value.publisher);
-
-    try {
-      let result = await doSearch(formData);
-      setSearchResult(result);
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-      setLoading(false);
+  const onFormFinish = async (values) => {
+    if (values.episodeName === "") {
+      values.episodeName = "null";
     }
+    if (values.showName === "") {
+      values.showName = "null";
+    }
+    if (values.publisher === "") {
+      values.publisher = "null";
+    }
+    window.location.href = `http://localhost:3000/search/${values.keyword}/${values.episodeName}/${values.showName}/${values.publisher}`;
   };
+
+
 
   useEffect(() => {
     let formValue = {
@@ -50,35 +47,36 @@ const SearchResultsPage = () => {
       publisher: publisher,
     };
 
-    if (formValue.episodeName === "undefined") {
+    if (formValue.episodeName === "null") {
       formValue.episodeName = "";
     }
-    if (formValue.showName === "undefined") {
+    if (formValue.showName === "null") {
       formValue.showName = "";
     }
-    if (formValue.publisher === "undefined") {
+    if (formValue.publisher === "null") {
       formValue.publisher = "";
     }
+
     form.setFieldsValue(formValue);
   }, []);
 
-  // useEffect(async () => {
-  //   setLoading(true);
-  //   const formData = new FormData();
-  //   formData.append(query);
-  //   formData.append(episodeName);
-  //   formData.append(showName);
-  //   formData.append(publisher);
+  useEffect(() => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("query", query);
+    formData.append("episodeName", episodeName);
+    formData.append("showName", showName);
+    formData.append("publisher", publisher);
 
-  //   try {
-  //     let result = await doSearch(formData);
-  //     setSearchResult(result);
-  //   } catch (error) {
-  //     message.error(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, []);
+    doSearch(formData)
+      .then((data) => {
+        setSearchResult(data);
+      })
+      .catch((error) => {
+        message.error(error.message);
+      })
+      .finally(setLoading(false));
+  }, []);
   return (
     <Layout style={{ height: "100vh" }}>
       <Header>
@@ -153,25 +151,20 @@ const SearchResultsPage = () => {
               onChange: (page) => {
                 console.log(page);
               },
-              pageSize: 3,
+              pageSize: 10,
+              showSizeChanger: false,
             }}
-            dataSource={sampleData}
+            dataSource={searchResult}
             renderItem={(item) => (
               <List.Item
                 key={item.showName}
-                extra={
-                  <img
-                    width={272}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                }
+                
               >
                 <List.Item.Meta
-                  title={<a href={item.showUrl}>{item.showName}</a>}
-                  description={item.publisher}
+                  title={<a href={item.episode_url}>{item.episode_name}</a>}
+                  description={`From show ${item.show_name} published by ${item.publisher}`}
                 />
-                {item.transcript}
+                {`${item.transcript}...`}
               </List.Item>
             )}
           />

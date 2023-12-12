@@ -8,6 +8,15 @@ const HomePageSearchBar = () => {
   const [loading, setLoading] = useState(false);
 
   const onFormFinish = (values) => {
+    if (values.episodeName === undefined) {
+      values.episodeName = "null";
+    }
+    if (values.showName === undefined) {
+      values.showName = "null";
+    }
+    if (values.publisher === undefined) {
+      values.publisher = "null";
+    }
     window.location.href = `search/${values.keyword}/${values.episodeName}/${values.showName}/${values.publisher}`;
   };
 
