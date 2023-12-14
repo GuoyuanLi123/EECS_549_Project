@@ -123,18 +123,18 @@ const SearchResultsPage = () => {
                 },
               ]}
             >
-              <Input />
+              <Input autoComplete="off"/>
             </Form.Item>
             <Form.Item label="EpisodeName" name="episodeName">
-              <Input />
+              <Input autoComplete="off" />
             </Form.Item>
 
             <Form.Item label="ShowName" name="showName">
-              <Input />
+              <Input autoComplete="off" />
             </Form.Item>
 
             <Form.Item label="Publisher" name="publisher">
-              <Input />
+              <Input autoComplete="off" />
             </Form.Item>
 
             <Form.Item>
@@ -156,10 +156,7 @@ const SearchResultsPage = () => {
             }}
             dataSource={searchResult}
             renderItem={(item) => (
-              <List.Item
-                key={item.showName}
-                
-              >
+              <List.Item key={item.showName}>
                 <List.Item.Meta
                   title={<a href={item.episode_url}>{item.episode_name}</a>}
                   description={`From show ${item.show_name} published by ${item.publisher}`}

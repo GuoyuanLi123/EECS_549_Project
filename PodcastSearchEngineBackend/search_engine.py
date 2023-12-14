@@ -1,4 +1,3 @@
-import pandas as pd
 import pyterrier as pt
 import json
 import os
