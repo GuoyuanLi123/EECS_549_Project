@@ -11,6 +11,9 @@ Podcast is a popular format of audio media. It covers many topics such as novels
 ```bash
 EECS_549_Project/
     PodcastSearchEngineBackend/
+        index/   # Not included in this repo for legal concerns. Please download the folder from Canvas
+        app.py
+        search_engine.py
     podcastsearchengine/
     convert_to_jsonl.py
     data_collector.py
