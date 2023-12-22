@@ -17,7 +17,6 @@ EECS_549_Project/
     convert_to_jsonl.py
     data_collector.py
     move_file.py
-    random_baseline.py
     test_evaluation.py
     test_index.py
 ```
